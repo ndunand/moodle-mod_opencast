@@ -1,0 +1,350 @@
+/*
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Version information
+ *
+ * @package    mod
+ * @subpackage opencast
+ * @copyright  2013 Université de Lausanne
+ * @author     Nicolas Dunand <Nicolas.Dunand@unil.ch>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+.path-mod-opencast iframe {
+    border: none;
+    overflow: none;
+}
+
+.path-mod-opencast table.opencast-clips {
+    width: 100%;
+    border-bottom: 1px #ccc dotted;
+}
+
+.path-mod-opencast table.opencast-clips tr {
+    border-top: 1px #ccc dotted;
+}
+
+.path-mod-opencast table.opencast-clips tr.opencast-clip-template-row {
+    display: none;
+}
+
+.path-mod-opencast table.opencast-clips tr:nth-child(odd) {
+    background-color: #f3f3f3;
+}
+
+.path-mod-opencast table.opencast-clips th {
+    background-color: #eee;
+}
+
+.path-mod-opencast table.opencast-clips td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.path-mod-opencast table.opencast-clips-members td:first-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.path-mod-opencast table.opencast-clips td.opencast-actions {
+    position: relative;
+}
+
+#page-mod-opencast-view table.opencast-clips .opencast-actions, #page-mod-opencast-view table.opencast-clips .opencast-owner, #page-mod-opencast-view table.opencast-clips .opencast-recordingstation {
+    display: none;
+}
+
+.path-mod-opencast table.opencast-clips td:first-child {
+    width: 160px;
+}
+
+.path-mod-opencast table.opencast-clips td img {
+    vertical-align: middle;
+}
+
+.path-mod-opencast a.button {
+    display: block;
+    float: right;
+    padding: 3px 5px;
+    margin: 2px;
+    text-decoration: none;
+    border: 1px #ccc solid;
+}
+
+.path-mod-opencast table.opencast-clips a.button {
+    float: none;
+    font-size: 9px;
+    padding: 2px 4px;
+}
+
+.path-mod-opencast table.opencast-clips td.opencast-actions {
+    background-image: url([[pix:t/collapsed]]);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.path-mod-opencast table.opencast-clips td.opencast-actions.opencast-actions-empty {
+    background: none;
+}
+
+/*.path-mod-opencast table.opencast-clips td.opencast-actions .opencast-hint-actions {
+    float: none;
+    position: absolute;
+    opacity: 1;
+    top: 0;
+    right: 20px;
+    left: 20px;
+    text-align: center;
+    margin: 55px 0 0 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.path-mod-opencast table.opencast-clips td.opencast-actions:hover .opencast-hint-actions {
+    opacity: 0;
+}*/
+
+.path-mod-opencast table.opencast-clips td.opencast-actions > div.opencast-hidden-actions {
+    opacity: 0;
+    background-color: #fff;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.path-mod-opencast table.opencast-clips td.opencast-actions:hover > div.opencast-hidden-actions {
+    opacity: 1;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel {
+    width: 160px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel img {
+    width: 160px;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel h3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    font-weight: normal;
+    width: 100%;
+    margin: 0 -6px;
+    padding: 4px 6px;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel h3 div.subtitle {
+    font-size: 9px;
+    padding: 0 5px;
+    display: none;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel div.linkbar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 16px;
+    margin: 0;
+    padding: 4px 6px;
+    text-align: right;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel div.linkbar a {
+    background-color: #ccc;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: auto 90%;
+    border-radius: 5px;
+}
+
+.path-mod-opencast table.opencast-clips div.cliplabel a, .path-mod-opencast table.opencast-clips div.cliplabel a:link, .path-mod-opencast table.opencast-clips div.cliplabel a:active, .path-mod-opencast table.opencast-clips div.cliplabel a:visited, .path-mod-opencast table.opencast-clips div.cliplabel a:hover {
+    display: block;
+    float: right;
+    width: 26px;
+    height: 16px;
+    color: #fff;
+    font-size: xpx;
+    text-decoration: none;
+    margin: 0 0 0 6px;
+}
+
+.path-mod-opencast a.flash {
+    background-image: url([[pix:mod_opencast|flash]]);
+}
+
+.path-mod-opencast a.mov {
+    background-image: url([[pix:mod_opencast|mov]]);
+}
+
+.path-mod-opencast a.m4v {
+    background-image: url([[pix:mod_opencast|m4v]]);
+}
+
+.path-mod-opencast a.annotate {
+    background-image: url([[pix:mod_opencast|annotate]]);
+}
+
+.path-mod-opencast .notify {
+    margin: 1em 0;
+    color: #c00;
+}
+
+.path-mod-opencast .opencast-notice {
+    clear: right;
+    float: right;
+    padding: 3px 5px;
+    margin: 3px;
+    color: #c00;
+}
+
+.path-mod-opencast #intro {
+    clear: both;
+}
+
+.path-mod-opencast .loading {
+    background-image: url([[pix:mod_opencast|loading]]);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 32px;
+}
+
+.path-mod-opencast .opencast-pagination {
+    float: right;
+    margin: 0 0 10px 0;
+}
+
+.path-mod-opencast .opencast-pagination span {
+    display: inline-block;
+    width: 120px;
+}
+
+.path-mod-opencast .ajax-controls-pagination {
+    padding-top: 15px;
+    display: none;
+}
+
+.path-mod-opencast .ajax-controls-pagination span {
+    display: inline;
+}
+
+.path-mod-opencast .opencast-filters {
+    display: none;
+    clear: left;
+    float: left;
+    width: 300px;
+    padding: 10px 10px 10px 20px;
+    background-color: #f3f3f3;
+    margin: 0 0 10px 0;
+}
+
+.path-mod-opencast .opencast-filters > div, .path-mod-opencast .opencast-pagination > div {
+    margin: 3px 0;
+}
+
+.path-mod-opencast .opencast-filters-toggle {
+    display: block;
+    float: left;
+    width: 300px;
+    padding: 5px 10px 5px 20px;
+    background-color: #eee;
+    background-image: url([[pix:t/collapsed]]);
+    background-repeat: no-repeat;
+    background-position: 2% 50%;
+}
+
+.path-mod-opencast .opencast-filters-toggle.expanded {
+    background-image: url([[pix:t/expanded]]);
+}
+
+.path-mod-opencast .opencast-filters span {
+    display: inline-block;
+    width: 120px;
+}
+
+.path-mod-opencast .clearer {
+    clear: both;
+}
+
+#page-mod-opencast-clip_members form, #page-mod-opencast-clip_editdetails form {
+    text-align: right;
+    margin: 10px 0;
+}
+
+#page-mod-opencast-clip_editdetails form.details {
+    text-align: left;
+}
+
+#page-mod-opencast-clip_editdetails form.details div {
+    padding: 3px;
+    clear: both;
+}
+
+#page-mod-opencast-clip_editdetails form.details span {
+    display: block;
+    float: left;
+    width: 200px;
+}
+
+.path-mod-opencast .opencast-clips-table.opencast-clips th a {
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    padding: 0 20px;
+}
+
+.path-mod-opencast a.sort.asc {
+    background-image: url([[pix:t/up]]);
+}
+
+.path-mod-opencast a.sort.desc {
+    background-image: url([[pix:t/down]]);
+}
+
+.path-mod-opencast table.opencast-clips th label {
+    font-weight: normal;
+    font-size: 9px;
+}
+
+#page-mod-opencast-clip_editdetails form.border {
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px #ccc dotted;
+}
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/opencast/db" VERSION="20131219" COMMENT="XMLDB file for Moodle mod/opencast"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+        >
+    <TABLES>
+        <TABLE NAME="opencast" COMMENT="SWITCHcast module instances">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="ext_id" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="SWITCHcast channel ID"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="introformat" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="is_ivt" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="allow_annotations" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="inviting" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="userupload" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="userupload_maxfilesize" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="organization_domain" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"
+                        />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="idx_ext_id" UNIQUE="false" FIELDS="ext_id"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="opencast_cmember" COMMENT="SWITCHcast clip members (i.e. invitations)"
+                >
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="clip_ext_id" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="courseid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="opencastid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="foreign_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"
+                        />
+                <KEY NAME="foreign_courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"
+                        />
+                <KEY NAME="foreign_opencastid" TYPE="foreign" FIELDS="opencastid" REFTABLE="opencast"
+                     REFFIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="opencast_uploadedclip" COMMENT="Keeps track of user uploaded SwitchCast clips"
+                >
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="filename" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="filesize" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="ext_id" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="opencastid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="timestamp" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="status" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                        />
+                <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="subtitle" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="presenter" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"
+                        />
+                <FIELD NAME="location" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
