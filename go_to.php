@@ -76,8 +76,7 @@ if ($token == sha1(mod_opencast_series::getValueForKey('default_sysaccount') . $
     $valid_until = $time + $validity_time_seconds;
     $signing_request_params = [
             'url'          => $url,
-            'valid-until'  => date('Y-m-d', $valid_until) . 'T' . date('H:i:s', $valid_until) . 'Z',
-            'valid-source' => getremoteaddr()
+            'valid-until'  => date('Y-m-d', $valid_until) . 'T' . date('H:i:s', $valid_until) . 'Z'
     ];
     $signed_url = mod_opencast_apicall::sendRequest('/security/sign', 'POST', $signing_request_params);
 
