@@ -306,4 +306,5 @@ $string['curl_timeout_desc'] =
         'Combien de temps attendre une réponse du serveur API SWITCHcast, en secondes. Augmentez cette value si vous avez des activités contenant beaucoup de clips et que le serveur SWITCHcast peine à répondre dans les temps.';
 $string['import_workflow'] = 'Workflow';
 $string['import_workflow_desc'] = 'ask your back-end administrator about this parameter'; // TODO translate
-
+$string['use_ipaddr_restriction'] = 'Use IP address restriction'; // TODO translate
+$string['use_ipaddr_restriction_desc'] = 'Use IP address restriction to further protect videos links. Test thoroughly if users access Moodle via a reverse proxy. Disable this if you encounter issues.'; // TODO translate

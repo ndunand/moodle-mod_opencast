@@ -72,12 +72,15 @@ if ($token == sha1(mod_opencast_series::getValueForKey('default_sysaccount') . $
 
     // 1.- request signing of the URL
     $time = time();
-    $validity_time_seconds = 3600 + 600;
+    $validity_time_seconds = 60;
     $valid_until = $time + $validity_time_seconds;
     $signing_request_params = [
             'url'          => $url,
-            'valid-until'  => date('Y-m-d', $valid_until) . 'T' . date('H:i:s', $valid_until) . 'Z'
+            'valid-until'  => date('Y-m-d', $valid_until) . 'T' . gmdate('H:i:s', $valid_until) . 'Z'
     ];
+    if (mod_opencast_series::getValueForKey('use_ipaddr_restriction')) {
+        $signing_request_params['valid-source'] = getremoteaddr();
+    }
     $signed_url = mod_opencast_apicall::sendRequest('/security/sign', 'POST', $signing_request_params);
 
     // 2.- redirect to signed URL

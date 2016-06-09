@@ -104,5 +104,10 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_configtext('opencast/curl_timeout', get_string('curl_timeout', 'opencast'),
             get_string('curl_timeout_desc', 'opencast'), '50', PARAM_INT));
+
+    $settings->add(new admin_setting_configcheckbox('opencast/use_ipaddr_restriction',
+            get_string('use_ipaddr_restriction', 'opencast'),
+            get_string('use_ipaddr_restriction_desc', 'opencast'), '1'));
+
 }
 

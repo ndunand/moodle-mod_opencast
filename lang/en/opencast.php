@@ -308,3 +308,6 @@ $string['pubchannel_download'] = 'Publication channel for downloads';
 $string['pubchannel_videoplayer'] = 'Publication channel for video players';
 $string['pubchannel_annotate'] = 'Publication channel for annotation system';
 $string['thumbnail_flavors'] = 'Video thumbnail flavors';
+$string['use_ipaddr_restriction'] = 'Use IP address restriction';
+$string['use_ipaddr_restriction_desc'] = 'Use IP address restriction to further protect videos links. Test thoroughly if users access Moodle via a reverse proxy. Disable this if you encounter issues.';
+
