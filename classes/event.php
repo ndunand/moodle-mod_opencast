@@ -145,7 +145,7 @@ class mod_opencast_event {
                     if ($publication->channel == mod_opencast_series::getValueForKey('pubchannel_annotate')) {
                         $url = $publication->url;
 
-                        return $url;
+                        break;
                     }
                     break;
 
