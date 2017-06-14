@@ -65,9 +65,11 @@ class mod_opencast_apicall {
             }
             else {
                 // No need to destroy the cache, the requests not containning "/series/xyzxyz" have no effect on clip/series metadata
-                // TODO yes I think we do! BUT NOT ALWAYS! e.g. not needed when /sign
-                mod_opencast_log::write("CACHE : destroying entire cache because " . $reason);
-                self::clear_cache($cache_dir);
+                // Not needed when POST /security/sign'ing
+                if ($url != '/security/sign') {
+                    mod_opencast_log::write("CACHE : destroying entire cache because " . $reason);
+                    self::clear_cache($cache_dir);
+                }
             }
         }
         if (!file_exists($cache_dir)) {
@@ -132,7 +134,6 @@ class mod_opencast_apicall {
 
             curl_setopt($curl_request, CURLOPT_SSL_VERIFYPEER, false);
 
-            // TODO WAIT FOR SWITCH : no signing for now (test phase)
             curl_setopt($curl_request, CURLOPT_USERPWD, mod_opencast_series::getValueForKey('switch_api_username').':'.mod_opencast_series::getValueForKey('switch_api_password'));
 
             curl_setopt($curl_request, CURLOPT_URL, $request_url);
@@ -151,7 +152,11 @@ class mod_opencast_apicall {
                 curl_setopt($curl_request, CURLOPT_HTTPHEADER, ['Accept: application/v1.0.0+json']);
             }
 
+            static $totaldeltatime = 0;
+            $timebeforecurlexec = time();
             $output = curl_exec($curl_request);
+            $deltatime = time() - $timebeforecurlexec;
+            $totaldeltatime += $deltatime;
             $curl_errno = curl_errno($curl_request); // 0 if fine
             $response_details = curl_getinfo($curl_request);
 
@@ -172,25 +177,10 @@ class mod_opencast_apicall {
 
             if ($output && (string)$request_type === 'GET' && (isset($response_details) && $response_details['http_code'] < 400) && ($cache_time && $cache_dir && is_writable($cache_dir))) {
                 // write cache to file, only if response is not an error
-                mod_opencast_log::write("CACHE : writing output to cache file " . $cache_filename);
+                mod_opencast_log::write("CACHE : writing output (curl took $deltatime s - $totaldeltatime) to cache file " . $cache_filename);
                 $fh_w = fopen($cache_filename, 'w');
                 fwrite($fh_w, $output);
                 fclose($fh_w);
-                // TODO SOMETIME : here, see if we can do sth like the following (i.e. cache all events from 1 API call)
-                //                if (strstr($request_url, 'clips.xml?full=true') !== false) {
-                //                    // we're getting full clip matadata (woohoo!), so let's fill in the cache
-                //                    // on these clips, before making any further API calls.
-                //                    $channelfull = new SimpleXMLElement($output);
-                //                    foreach ($channelfull as $clipxml) {
-                //                        $clip_request_url =
-                //                                preg_replace('/^(.*)clips\.xml\?full=true.*/', '\1clips/' . $clipxml->ext_id . '.xml',
-                //                                        $request_url);
-                //                        $cache_clip_filename = $cache_dir . '/' . self::hashfilename($clip_request_url);
-                //                        $fh_w = fopen($cache_clip_filename, 'w');
-                //                        fwrite($fh_w, $clipxml->asXML());
-                //                        fclose($fh_w);
-                //                    }
-                //                }
             }
         }
 

@@ -232,55 +232,80 @@ class mod_opencast_series {
             $option = htmlspecialchars($option, ENT_XML1, 'UTF-8');
         }
 
+        $metadata = [
+                [
+                        'flavor' => 'dublincore/episode', 'fields' => [
+                        [
+                                'id' => 'title', 'value' => $options['title']
+                        ], [
+                                'id' => 'description', 'value' => $options['subtitle']
+                        ], [
+                                'id' => 'isPartOf', 'value' => $this->ext_id
+                        ], [
+                                'id' => 'startDate', 'value' => date('Y-m-d')
+                        ], [
+                                'id' => 'startTime', 'value' => date('H:i:s')
+                        ], [
+                                'id' => 'creator', 'value' => [$options['presenter']]
+                        ]// TODO WAIT FOR SWITCH to change 'creator' to 'presenter'
+                    , [
+                                'id' => 'location', 'value' => $options['location']
+                        ]
+                ]
+                ]
+        ];
+
+        $acls = [
+                [
+                        'allow'  => true,
+                        'action' => 'read',
+                        'role'   => 'ROLE_ORG_PRODUCER'
+                ],
+                [
+                        'allow'  => true,
+                        'action' => 'write',
+                        'role'   => 'ROLE_ORG_PRODUCER'
+                ],
+                [
+                        'allow'  => true,
+                        'action' => 'read',
+                        'role'   => 'ROLE_EXTERNAL_APPLICATION'
+                ],
+                [
+                        'allow'  => true,
+                        'action' => 'write',
+                        'role'   => 'ROLE_EXTERNAL_APPLICATION'
+                ],
+                [
+                        'allow'  => true,
+                        'action' => 'read',
+                        'role'   => 'ROLE_AAI_USER_' . $scuser->getExternalAccount()
+                ],
+                [
+                        'allow'  => true,
+                        'action' => 'write',
+                        'role'   => 'ROLE_AAI_USER_' . $scuser->getExternalAccount()
+                ]
+        ];
+
+        if (isset($options['ivt__owner'])) {
+            $acls[] = [
+                    'allow'  => true,
+                    'action' => 'read',
+                    'role'   => 'ROLE_USER_IVT_AAI_' . $options['ivt__owner']
+            ];
+            $acls[] = [
+                    'allow'  => true,
+                    'action' => 'write',
+                    'role'   => 'ROLE_USER_IVT_AAI_' . $options['ivt__owner']
+            ];
+        }
+
         $data = [
-                'metadata'                               => json_encode([
-                        [
-                                'flavor' => 'dublincore/episode', 'fields' => [
-                                [
-                                        'id' => 'title', 'value' => $options['title']
-                                ], [
-                                        'id' => 'description', 'value' => $options['subtitle']
-                                ], [
-                                        'id' => 'isPartOf', 'value' => $this->ext_id
-                                ], [
-                                        'id' => 'startDate', 'value' => date('Y-m-d')
-                                ], [
-                                        'id' => 'startTime', 'value' => date('H:i:s')
-                                ], [
-                                        'id' => 'creator', 'value' => [$options['presenter']]
-                                ]// TODO WAIT FOR SWITCH to change 'creator' to 'presenter'
-                                , [
-                                        'id' => 'location', 'value' => $options['location']
-                                ]
-                        ]
-                        ]
-                ], JSON_UNESCAPED_SLASHES), 'acl'        => json_encode([
-                        [
-
-                                'allow' => true, 'action' => 'read', 'role' => 'ROLE_ORG_PRODUCER'
-                        ], [
-                                'allow' => true, 'action' => 'write', 'role' => 'ROLE_ORG_PRODUCER'
-                        ], [
-                                'allow' => true, 'action' => 'read', 'role' => 'ROLE_EXTERNAL_APPLICATION'
-                        ], [
-                                'allow' => true, 'action' => 'write', 'role' => 'ROLE_EXTERNAL_APPLICATION'
-                        ], [
-                                'allow' => true, 'action' => 'read',
-                                'role'  => 'ROLE_AAI_USER_' . $scuser->getExternalAccount()
-                        ], [
-                                'allow' => true, 'action' => 'write',
-                                'role'  => 'ROLE_AAI_USER_' . $scuser->getExternalAccount()
-                        ], [
-                                'allow' => true, 'action' => 'read',
-                                'role'  => 'ROLE_USER_IVT_AAI_' . $scuser->getExternalAccount()
-                        ], [
-                                'allow' => true, 'action' => 'write',
-                                'role'  => 'ROLE_USER_IVT_AAI_' . $scuser->getExternalAccount()
-                        ]
-                ], JSON_UNESCAPED_SLASHES),
-                'processing'                             => '{"workflow": "' . self::getValueForKey('import_workflow') . '", "configuration": {}}'
-                // see https://dokuwiki.toolbox.switch.ch/opencast-api/api_conventions
-
+                'metadata'   => json_encode($metadata, JSON_UNESCAPED_SLASHES),
+                'acl'        => json_encode($acls, JSON_UNESCAPED_SLASHES),
+                'processing' => '{"workflow": "' . self::getValueForKey('import_workflow') . '", "configuration": {}}'
+            // see https://dokuwiki.toolbox.switch.ch/opencast-api/api_conventions
         ];
 
         return mod_opencast_apicall::sendRequest($url, 'POST', $data, null, null, $options['filename']);
@@ -586,9 +611,7 @@ class mod_opencast_series {
     public function getEvents($filters = []) {
 
         $url = '/events';
-        $url .= '?limit=1000';
-        $url .= '&withpublications=true';
-        $url .= '&filter=series:' . $this->getExtId();
+        $url .= '?filter=series:' . $this->getExtId();
 
         $events = mod_opencast_apicall::sendRequest($url, 'GET', null, false, true, null, false, true); // dont run-as, we want all events, we'll be filtering later
 
@@ -616,7 +639,6 @@ class mod_opencast_series {
                 else if ($filter_key == 'ivt_owner') {
                     // we have to check this event's full ACLs
                     $event = new mod_opencast_event($this, $events[$i]->identifier);
-                    $event->fetch();
                     if ($event->getOwner() != $value) {
                         unset ($events[$i]);
                         continue 2;
@@ -624,7 +646,6 @@ class mod_opencast_series {
                 }
                 else if ($filter_key == 'withoutowner' && $value == 'true') {
                     $event = new mod_opencast_event($this, $events[$i]->identifier);
-                    $event->fetch();
                     if ($event->getOwner() != '') {
                         unset ($events[$i]);
                         continue 2;
@@ -632,7 +653,6 @@ class mod_opencast_series {
                 }
                 else if ($filter_key == 'presenter') {
                     $event = new mod_opencast_event($this, $events[$i]->identifier);
-                    $event->fetch();
                     if (strpos($event->getPresenter(), $value) === false) {
                         unset ($events[$i]);
                         continue 2;

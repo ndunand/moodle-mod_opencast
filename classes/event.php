@@ -71,8 +71,11 @@ class mod_opencast_event {
         $event = mod_opencast_apicall::sendRequest('/events/' . $this->getExtId() . '?withpublications=true', 'GET', null, false, true, null, false, true); // dont run-as, we want all events, we have filtered already
         $event_acls = mod_opencast_apicall::sendRequest('/events/' . $this->getExtId() . '/acl', "GET", null, false, true, null, false, true); // dont run-as, we want all events, we have filtered already
         while ($acl = array_pop($event_acls)) {
-            if ($acl->allow == true && $acl->action == 'write' && preg_match('/^ROLE\_AAI\_USER\_([^\_]+)$/', $acl->role,
-                            $matches) && $matches[1] != mod_opencast_series::getValueForKey('default_sysaccount')
+            if ($acl->allow == true
+//                    && $acl->action == 'write'
+                    && (preg_match('/^ROLE\_USER\_IVT\_AAI\_([^\_]+)$/', $acl->role, $matches)
+                            || preg_match('/^ROLE\_IVT\_OWNER\_AAI\_([^\_]+)$/', $acl->role, $matches))
+                    && $matches[1] != mod_opencast_series::getValueForKey('default_sysaccount')
             ) {
                 $this->setOwner($matches[1]);
                 break;
@@ -223,6 +226,10 @@ class mod_opencast_event {
             ) {
                 // drop ACL (i.e. do nothing)
             }
+            else if (preg_match('/^ROLE\_USER\_IVT\_AAI\_([^\_]+)$/', $acl->role) || preg_match('/^ROLE\_IVT\_OWNER\_AAI\_([^\_]+)$/', $acl->role)) {
+                // remove current IVT owners as we'll set them later on
+                // drop ACL (i.e. do nothing)
+            }
             else {
                 // user is either OpenCast internal, or system_user -> keep ACL
                 $new_acls[] = $acl;
@@ -230,9 +237,9 @@ class mod_opencast_event {
         }
         // 3.- add specified owner
         $new_acls[] = ['action' => 'write', 'allow' => true, 'role' => 'ROLE_AAI_USER_' . $this->getOwner()];
-        if ($this->series->getIvt()) {
+//        if ($this->series->getIvt()) {
             $new_acls[] = ['action' => 'write', 'allow' => true, 'role' => 'ROLE_USER_IVT_AAI_' . $this->getOwner()];
-        }
+//        }
 
         $data = ['acl' => json_encode($new_acls, JSON_UNESCAPED_SLASHES)];
 
