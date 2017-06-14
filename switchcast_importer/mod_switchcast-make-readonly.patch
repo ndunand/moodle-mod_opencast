@@ -1,0 +1,19 @@
+diff --git a/mod/switchcast/scast_xml.class.php b/mod/switchcast/scast_xml.class.php
+index 178b562..ca8a1af 100644
+--- a/mod/switchcast/scast_xml.class.php
++++ b/mod/switchcast/scast_xml.class.php
+@@ -53,6 +53,14 @@ class scast_xml {
+         $cache_time = scast_obj::getValueByKey('xml_cache_time');
+         $cache_dir = $CFG->dataroot.'/cache/mod_switchcast';
+         if ($request_type !== 'GET') {
++
++
++            // we only allow for GET requests from now on (plugin is obsolete)
++            return false;
++
++
++
++
+             // a modification has been made, clear the cache for consistency
+             $reason = $request_type . ' ' . $request_url;
+             $matches = false;
