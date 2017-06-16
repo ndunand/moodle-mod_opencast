@@ -374,7 +374,7 @@ class mod_opencast_series {
                 continue;
             }
 
-            $series_events = $series->getEvents();
+            $series_events = $series->getEvents([], false); // don't use the cache as this would be new data
             $series_event_indentifiers = [];
             foreach ($series_events as $series_event) {
                 $series_event_indentifiers[] = (string)$series_event->identifier;
@@ -394,8 +394,10 @@ class mod_opencast_series {
                     // clip being processed: check whether it's ready
                     foreach ($series_events as $series_event) {
                         if ($series_event->identifier == $uploaded_video->ext_id) {
-                            if ($series_event->processing_state == OPENCAST_PROCESSING_SUCCEEDED && count($series_event->publications)) {
+                            if ($series_event->processing_state == OPENCAST_PROCESSING_SUCCEEDED) {
                                 // it's ready!
+                                // refresh the cache for this event
+                                mod_opencast_apicall::sendRequest('/events/' . $series_event->identifier . '?withpublications=true', 'GET', null, false, false);
                                 $uploaded[] = $uploaded_video->filename;
                                 $uploaded_video->status = OPENCAST_CLIP_READY;
                                 $DB->update_record('opencast_uploadedclip', $uploaded_video);
@@ -608,12 +610,12 @@ class mod_opencast_series {
      * @return bool|stdClass
      * @throws moodle_exception
      */
-    public function getEvents($filters = []) {
+    public function getEvents($filters = [], $usecache = true) {
 
         $url = '/events';
         $url .= '?filter=series:' . $this->getExtId();
 
-        $events = mod_opencast_apicall::sendRequest($url, 'GET', null, false, true, null, false, true); // dont run-as, we want all events, we'll be filtering later
+        $events = mod_opencast_apicall::sendRequest($url, 'GET', null, false, $usecache, null, false, true); // dont run-as, we want all events, we'll be filtering later
 
         $count_events = count($events);
         for ($i = 0; $i < $count_events; $i++) {

@@ -92,7 +92,6 @@ if (in_array($action, ['edit']) && confirm_sesskey() && has_capability('mod/open
                 if ($newowner_aaiUniqueId) {
                     $newowner = new mod_opencast_user($newowner_aaiUniqueId);
                     $sc_clip->setOwner($newowner_aaiUniqueId);
-                    $sc_clip->update();
                 }
                 else {
                     print_error('owner_no_switch_account', 'opencast', $url,

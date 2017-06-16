@@ -56,21 +56,7 @@ class mod_opencast_apicall {
 
         if ($request_type !== 'GET') {
             // a modification has been made, clear the cache for consistency
-            $reason = $request_type . ' ' . $request_url;
-            $matches = false;
-            if (preg_match('/\/series\/([0-9a-zA-Z]+)/', $request_url, $matches)) {
-                // TODO Check because not working when deleting an event
-                mod_opencast_log::write("CACHE : destroying cache for series " . $matches[1] . " because " . $reason);
-                self::clear_cache($cache_dir, $matches[1]);
-            }
-            else {
-                // No need to destroy the cache, the requests not containning "/series/xyzxyz" have no effect on clip/series metadata
-                // Not needed when POST /security/sign'ing
-                if ($url != '/security/sign') {
-                    mod_opencast_log::write("CACHE : destroying entire cache because " . $reason);
-                    self::clear_cache($cache_dir);
-                }
-            }
+            self::clear_cache($cache_dir, $request_type, $request_url);
         }
         if (!file_exists($cache_dir)) {
             mod_opencast_log::write("CACHE : initializing empty cache");
@@ -93,7 +79,7 @@ class mod_opencast_apicall {
         }
         else {
             // no cache for this request
-            mod_opencast_log::write("CACHE : no cached file");
+            mod_opencast_log::write("CACHE : no cached file " . $cache_filename);
 
             libxml_use_internal_errors(true);
 
@@ -231,29 +217,59 @@ class mod_opencast_apicall {
     }
 
     /**
-     * Delete a directory recursive with files inside
-     *
-     * @param string $dirname
-     * @param bool   $filter
+     * @param $dirname
+     * @param $request_type
+     * @param $request_url
      *
      * @return bool
      */
-    static function clear_cache($dirname, $filter = false) {
+    static function clear_cache($dirname, $request_type, $request_url) {
+        $request_url = str_replace(mod_opencast_series::getValueForKey('switch_api_host'), '', $request_url);
+        switch ($request_type) {
+            case 'DELETE':
+                // DELETE'ing an event -> clear all series' list of events cache
+                $filter = 'events_filter_series_';
+                break;
+            case 'POST':
+                if ($request_url == '/events') {
+                    // adding an event -> clear all series' list of events cache
+                    $filter = 'events_filter_series_';
+                }
+                break;
+            case 'PUT':
+                if (preg_match('/\/events\/([0-9a-zA-Z\-]+)/', $request_url, $matches)) {
+                    // ipdating an event's ACLs or metadata
+                    $filter = 'events_' . self::hashfilename($matches[1]);
+                }
+                else if (preg_match('/\/series\/([0-9a-zA-Z\-]+)/', $request_url, $matches)) {
+                    // updating a series 'producer'
+                    $filter = 'series_' . self::hashfilename($matches[1]) . '_acl';
+                }
+                break;
+            default:
+                return false;
+        }
+        // make sure we're filtering and that cache is set up correctly
+        if (!isset($filter)) {
+            return false;
+        }
         if (!file_exists($dirname)) {
             return false;
         }
         if (is_file($dirname) || is_link($dirname)) {
             return unlink($dirname);
         }
+        // proceed to deleting relevant file(s)
+        $reason = $request_type . ' ' . $request_url;
         $dir = dir($dirname);
         while (false !== $entry = $dir->read()) {
             if ($entry == '.' || $entry == '..') {
                 continue;
             }
-            if ($filter !== false && strstr($entry, $filter) === false) {
-                continue;
+            if (strstr($entry, $filter) !== false) {
+                unlink($dirname . DIRECTORY_SEPARATOR . $entry);
+                mod_opencast_log::write("CACHE : deleting cache file $entry because $reason");
             }
-            unlink($dirname . DIRECTORY_SEPARATOR . $entry);
         }
         $dir->close();
 
