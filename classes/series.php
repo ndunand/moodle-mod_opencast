@@ -17,9 +17,9 @@
 /**
  * Version information
  *
- * @package    mod
- * @subpackage opencast
- * @copyright  2013-2015 Université de Lausanne
+ * @package    mod_opencast
+ * @copyright  2013-2017 Université de Lausanne
+ * @author     Nicolas.Dunand@unil.ch
  * @author     Nicolas Dunand <Nicolas.Dunand@unil.ch>
  * @author     Fabian Schmid <schmid@ilub.unibe.ch>
  * @author     Martin Studer <ms@studer-raimann.ch>

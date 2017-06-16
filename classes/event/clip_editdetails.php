@@ -18,7 +18,8 @@
  * The mod_opencast post created event.
  *
  * @package    mod_opencast
- * @copyright  2014 Dan Poltawski <dan@moodle.com>
+ * @copyright  2013-2017 Université de Lausanne
+ * @author     Nicolas.Dunand@unil.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

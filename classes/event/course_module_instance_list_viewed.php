@@ -17,8 +17,9 @@
 /**
  * The mod_forum instance list viewed event.
  *
- * @package    mod_forum
- * @copyright  2014 Dan Poltawski <dan@moodle.com>
+ * @package    mod_opencast
+ * @copyright  2013-2017 Université de Lausanne
+ * @author     Nicolas.Dunand@unil.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
