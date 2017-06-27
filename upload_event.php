@@ -112,7 +112,7 @@ else if ($formdata = $mform->get_data()) {
             print_error('fileis_notextensionallowed', 'opencast', $url, $a);
         }
 
-        $filetoupload = $CFG->dataroot . '/temp/files/mod_opencast_' . md5(microtime()) . '.' . $extension[1];
+        $filetoupload = $CFG->tempdir . '/files/mod_opencast_' . md5(microtime()) . '.' . $extension[1];
         $a_file = $file->copy_content_to_temp();
         rename($a_file, $filetoupload);
 
