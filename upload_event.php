@@ -63,7 +63,12 @@ $sc_obj->fetch($opencast->id);
 $PAGE->set_title(format_string($opencast->name));
 $PAGE->set_heading($course->fullname);
 
-$maxbytes = min(mod_opencast_series::getValueForKey('userupload_maxfilesize'), $opencast->userupload_maxfilesize);
+if ($opencast->userupload) {
+    $maxbytes = min(mod_opencast_series::getValueForKey('userupload_maxfilesize'), $opencast->userupload_maxfilesize);
+}
+else {
+    $maxbytes = mod_opencast_series::getValueForKey('userupload_maxfilesize');
+}
 
 $usercontext = context_user::instance($USER->id);
 
