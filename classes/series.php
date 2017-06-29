@@ -319,6 +319,7 @@ class mod_opencast_series {
         global $CFG, $DB;
 
         $admin = get_admin();
+        $noreplyuser = core_user::get_noreply_user();
         $opencasts = $DB->get_records('opencast');
 
         // first, some maintenance: delete stale records (e.g. if an error occured at SCast)
@@ -338,7 +339,7 @@ class mod_opencast_series {
                 // notify admin too
                 $a_s->userlink = $CFG->wwwroot . '/user/profile.php?id=' . $user_stale->id;
                 $a_s->userfullname = fullname($user_stale);
-                email_to_user($admin, $admin, get_string('clipstale_subject_admin', 'opencast'),
+                email_to_user($admin, $noreplyuser, get_string('clipstale_subject_admin', 'opencast'),
                         get_string('clipstale_body_admin', 'opencast', $a_s));
             }
         }
@@ -409,7 +410,7 @@ class mod_opencast_series {
                                     $a->cliptitle = $uploaded_video->title;
                                     $cm = get_coursemodule_from_instance('opencast', $opencast->id);
                                     $a->link = $CFG->wwwroot . '/mod/opencast/view.php?id=' . $cm->id;
-                                    email_to_user($user, $admin, get_string('clipready_subject', 'opencast'),
+                                    email_to_user($user, $noreplyuser, get_string('clipready_subject', 'opencast'),
                                             get_string('clipready_body', 'opencast', $a));
                                 }
                             }
