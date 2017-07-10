@@ -154,7 +154,7 @@ class mod_opencast_renderer extends plugin_renderer_base {
                             'class' => 'upload button'
                     ]);
         }
-        if ($this->series->isProducer($this->scuser->getExternalAccount())) {
+        if (has_capability('mod/opencast:isproducer', $context)) {
             //            echo html_writer::tag('a', get_string('upload_clip', 'opencast'), array('href' => $this->scobj->getUploadForm(), 'class' => 'upload button', 'target' => '_blank'));
             echo html_writer::tag('a', get_string('edit_at_switch', 'opencast'),
                     ['href' => $this->series->getEditLink(), 'class' => 'editchannel button', 'target' => '_blank']);

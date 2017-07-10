@@ -1239,9 +1239,11 @@ class mod_opencast_series {
      * @return string
      */
     public function getEditLink() {
-        $url = trim($this->getValueForKey('switch_admin_host'), '/') . '/admin-ng/index.html#/events/series';
+        $url = trim($this->getValueForKey('switch_admin_host'), '/') . '/admin-ng/index.html#/events/events?storage=';
+        $urlparams = (object)array('filter' => (object)array('events' => (object)array('series' => $this->getExtId())));
+        $fullurl = $url . urlencode(json_encode($urlparams));
 
-        return $url;
+        return $fullurl;
     }
 
     /**
