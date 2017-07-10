@@ -55,6 +55,10 @@ if (!$context = context_module::instance($cm->id)) {
     print_error('badcontext', null, $return_course);
 }
 
+if (!has_capability('mod/opencast:isproducer', $context)) {
+    require_capability('mod/opencast:uploadclip', $context);
+}
+
 $sc_obj = new mod_opencast_series();
 $sc_obj->fetch($opencast->id);
 
