@@ -81,6 +81,6 @@ echo $OUTPUT->header();
 $renderer = $PAGE->get_renderer('mod_opencast');
 $renderer->display_channel_content();
 
-echo $OUTPUT->footer();
-
 mod_opencast_series::processUploadedClips();
+
+echo $OUTPUT->footer();
