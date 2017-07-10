@@ -398,7 +398,7 @@ class mod_opencast_series {
                             if ($series_event->processing_state == OPENCAST_PROCESSING_SUCCEEDED) {
                                 // it's ready!
                                 // refresh the cache for this event
-                                mod_opencast_apicall::sendRequest('/events/' . $series_event->identifier . '?withpublications=true', 'GET', null, false, false);
+                                mod_opencast_apicall::sendRequest('/events/' . $series_event->identifier . '?withpublications=true', 'GET', null, false, false, null, true, false);
                                 $uploaded[] = $uploaded_video->filename;
                                 $uploaded_video->status = OPENCAST_CLIP_READY;
                                 $DB->update_record('opencast_uploadedclip', $uploaded_video);
