@@ -352,7 +352,7 @@ class mod_opencast_series {
 
         foreach ($opencasts as $opencast) {
 
-            $uploaded_videos = $DB->get_records('opencast_uploadedclip', ['opencastid' => $opencast->id]);
+            $uploaded_videos = $DB->get_records('opencast_uploadedclip', ['opencastid' => $opencast->id, 'status' => OPENCAST_CLIP_UPLOADED]);
             if (!$uploaded_videos) {
                 continue;
             }
