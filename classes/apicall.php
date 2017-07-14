@@ -224,6 +224,7 @@ class mod_opencast_apicall {
      */
     static function clear_cache($dirname, $request_type, $request_url) {
         $request_url = str_replace(mod_opencast_series::getValueForKey('switch_api_host'), '', $request_url);
+        $request_url = rtrim($request_url, '/');
         switch ($request_type) {
             case 'DELETE':
                 // DELETE'ing an event -> clear all series' list of events cache
@@ -233,6 +234,11 @@ class mod_opencast_apicall {
                 if ($request_url == '/events') {
                     // adding an event -> clear all series' list of events cache
                     $filter = 'events_filter_series_';
+                }
+                else if ($request_url == '/series') {
+                    // adding a series -> clear global series list
+                    $filter = 'series_';
+                    return unlink($dirname . DIRECTORY_SEPARATOR . $filter); // only delete this very file
                 }
                 break;
             case 'PUT':
