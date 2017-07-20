@@ -198,7 +198,7 @@ if ($action == 'migrate') {
         $nbactivitynotmigrated = count(array_unique($activitynotmigrated));
         echo "<p>An extra {$nbactivitynotmigrated} SWITCHcast1 activities have been found in Moodle whose channel was not in the JSON mappings file – these can't be migrated.</p>";
         if (!$bypassevenifactivitynotmigrated) {
-            stop_if_stop_on_extra('bypassevenifactivitynotmigrated', array_values(array_unique($activitynotmigrated)));
+            stop_if_stop_on_extra('bypassevenifactivitynotmigrated', array_unique($activitynotmigrated));
         }
     }
 
