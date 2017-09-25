@@ -27,36 +27,67 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
 
-        'mod/opencast:use'          => [
-                'captype' => 'read', 'contextlevel' => CONTEXT_MODULE, 'archetypes' => [
-                        'student' => CAP_ALLOW, 'teacher' => CAP_ALLOW, 'editingteacher' => CAP_ALLOW
+        'mod/opencast:use' => [
+                'captype'      => 'read',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'student'        => CAP_ALLOW,
+                        'teacher'        => CAP_ALLOW,
+                        'editingteacher' => CAP_ALLOW,
+                        'manager'        => CAP_ALLOW
                 ]
         ],
 
-        'mod/opencast:seeallclips'  => [
-                'captype'    => 'read', 'contextlevel' => CONTEXT_MODULE,
-                'archetypes' => ['teacher' => CAP_ALLOW, 'editingteacher' => CAP_ALLOW]
+        'mod/opencast:seeallclips' => [
+                'captype'      => 'read',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'teacher'        => CAP_ALLOW,
+                        'editingteacher' => CAP_ALLOW,
+                        'manager' => CAP_ALLOW
+                ]
         ],
 
-        'mod/opencast:addinstance'  => [
-                'riskbitmask' => RISK_SPAM, 'captype' => 'write', 'contextlevel' => CONTEXT_MODULE,
-                'archetypes'  => ['editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW]
+        'mod/opencast:addinstance' => [
+                'riskbitmask'  => RISK_SPAM,
+                'captype'      => 'write',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'editingteacher' => CAP_ALLOW,
+                        'manager'        => CAP_ALLOW
+                ]
         ],
 
-        'mod/opencast:isproducer'   => [
-                'riskbitmask' => RISK_SPAM, 'captype' => 'write', 'contextlevel' => CONTEXT_MODULE,
-                'archetypes'  => ['editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW]
+        'mod/opencast:isproducer' => [
+                'riskbitmask'  => RISK_SPAM,
+                'captype'      => 'write',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'editingteacher' => CAP_ALLOW,
+                        'manager'        => CAP_ALLOW
+                ]
         ],
 
-        'mod/opencast:uploadclip'   => [
-                'riskbitmask' => RISK_SPAM, 'captype' => 'write', 'contextlevel' => CONTEXT_MODULE, 'archetypes' => [
-                        'student' => CAP_ALLOW, 'teacher' => CAP_ALLOW, 'editingteacher' => CAP_ALLOW
+        'mod/opencast:uploadclip' => [
+                'riskbitmask'  => RISK_SPAM,
+                'captype'      => 'write',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'student'        => CAP_ALLOW,
+                        'teacher'        => CAP_ALLOW,
+                        'editingteacher' => CAP_ALLOW,
+                        'manager'        => CAP_ALLOW
                 ]
         ],
 
         'mod/opencast:downloadclip' => [
-                'captype' => 'write', 'contextlevel' => CONTEXT_MODULE, 'archetypes' => [
-                        'student' => CAP_ALLOW, 'teacher' => CAP_ALLOW, 'editingteacher' => CAP_ALLOW
+                'captype'      => 'write',
+                'contextlevel' => CONTEXT_MODULE,
+                'archetypes'   => [
+                        'student'        => CAP_ALLOW,
+                        'teacher'        => CAP_ALLOW,
+                        'editingteacher' => CAP_ALLOW,
+                        'manager'        => CAP_ALLOW
                 ]
         ]
 
