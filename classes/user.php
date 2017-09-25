@@ -233,12 +233,22 @@ class mod_opencast_user {
 
         $filtered_result = [];
         foreach ($results as $result) {
+            $userhasaccess = false;
+            $lmshasaccess = false;
+
             $ch_acls = mod_opencast_apicall::sendRequest('/series/' . $result->identifier . '/acl', 'GET', null, false, true, null, true, false);
 
             for ($i = 0; $i < count($ch_acls); $i++) {
                 $acl = $ch_acls[$i];
                 if ($acl->allow == true && $acl->action == 'write' && $acl->role == 'ROLE_AAI_USER_' . $aaiUniqueId) {
                     // is a producer
+                    $userhasaccess = true;
+                }
+                if ($acl->allow == true && $acl->action == 'write' && $acl->role == 'ROLE_AAI_USER_' . $aaiUniqueId) {
+                    // LMS has access
+                    $lmshasaccess = true;
+                }
+                if ($userhasaccess && $lmshasaccess) {
                     $filtered_result[] = $result;
                 }
             }
