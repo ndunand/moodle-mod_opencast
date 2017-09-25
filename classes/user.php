@@ -244,7 +244,7 @@ class mod_opencast_user {
                     // is a producer
                     $userhasaccess = true;
                 }
-                if ($acl->allow == true && $acl->action == 'write' && $acl->role == 'ROLE_AAI_USER_' . $aaiUniqueId) {
+                if ($acl->allow == true && $acl->action == 'write' && $acl->role == 'ROLE_EXTERNAL_APPLICATION') {
                     // LMS has access
                     $lmshasaccess = true;
                 }
