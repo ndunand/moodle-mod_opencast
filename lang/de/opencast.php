@@ -26,10 +26,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['answered'] = 'Beantwortet';
-$string['channel'] = 'Serie';
-$string['channelnew'] = 'Neue Serie';
-$string['channelchoose'] = 'Wählen Sie eine vorhandene Serie aus';
-$string['channelexisting'] = 'Vorhandene Serie';
+$string['channel'] = 'Kanal';
+$string['channelnew'] = 'Neuer Kanal';
+$string['channelchoose'] = 'Wählen Sie einen vorhandenen Kanal aus';
+$string['channelexisting'] = 'Vorhandener Kanal';
 $string['completionsubmit'] = 'Als vervollständigt anzeigen, wenn der/die NutzerIn eine Auswahl trifft';
 $string['displayhorizontal'] = 'Horizontale Anzeige';
 $string['displaymode'] = 'Anzeigemodus';
@@ -45,12 +45,12 @@ $string['opencastoptions'] = 'SWITCHcast-Optionen';
 $string['chooseaction'] = 'Wählen Sie eine Aktion ...';
 $string['limit'] = 'Beschränkung';
 $string['limitanswers'] = 'Beschränken Sie die Anzahl erlaubter Antworten';
-$string['modulename'] = 'SWITCHcast';
+$string['modulename'] = 'SWITCHcast-Kanal';
 $string['modulename_help'] =
-        'Die Aktivität SWITCHcast erlaubt Managern und Teachern das Anlegen und Managen einer SWITCHcast-Serie direkt aus dem Moodle-Kurs.';
-$string['modulenameplural'] = 'SWITCHcast-Serien';
+        'Das SWITCHcast-Modul erlaubt Managern und Teachern das Anlegen und Managen eines SWITCHcast-Kanals direkt aus dem Moodle-Kurs.';
+$string['modulenameplural'] = 'SWITCHcast-Kanäle';
 $string['mustchooseone'] =
-        'Vor dem Speichern müssen Sie zuerst eine Auswahl treffen. Die Änderungen wurden nicht gespeichert.';
+        'Vor dem Speichern müssen Sie zuerst eine Auswahl wählen. Die Änderungen wurden nicht gespeichert.';
 $string['noresultsviewable'] = 'Die Resultate dürfen zur Zeit nicht angeschaut werden.';
 $string['notanswered'] = 'Noch nicht beantwortet';
 $string['notopenyet'] = 'Diese Aktivität steht erst per {$a} zur Verfügung';
@@ -68,12 +68,8 @@ $string['uid_field_desc'] =
         'Feld im Nutzerprofil, welches die AAI Unique ID enthält. Form der Eingabe: &lt;fieldname&gt; ODER &lt;table::fieldid&gt;.';
 $string['switch_api_host'] = 'SWITCHcast API URL';
 $string['switch_api_host_desc'] = 'URL, unter welcher der SWITCHcast Web-Service kontaktiert wird.';
-$string['switch_api_username'] = 'SWITCHcast API Nutzername';
-$string['switch_api_username_desc'] = '';
-$string['switch_api_password'] = 'SWITCHcast API Passwort';
-$string['switch_api_password_desc'] = '';
-$string['switch_admin_host'] = 'SWITCHcast Administrations-URL';
-$string['switch_admin_host_desc'] = 'URL, unter der das OpenCast-Administrations-Interface aufgerufen werden kann.';
+$string['switch_admin_host'] = ''; // TODO missing
+$string['switch_admin_host_desc'] = ''; // TODO missing
 $string['default_sysaccount'] = 'Default System Account';
 $string['default_sysaccount_desc'] = 'Default Account, welcher für die SWITCHcast API-Calls verwendet wird.';
 $string['sysaccount'] = 'System-Account für {$a}';
@@ -105,7 +101,7 @@ $string['metadata_export_desc'] = '';
 //$string['streaming_configuration_id'] = 'Streaming configuration ID';
 //$string['streaming_configuration_id_desc'] = '';
 $string['access'] = 'Zugang';
-$string['access_desc'] = 'Zugangslevel für erstellte Serien.';
+$string['access_desc'] = 'Zugangslevel für erstellte Kanäle.';
 $string['misconfiguration'] =
         'Das Plugin wurde falsch eingerichtet. Bitte kontaktieren Sie Ihren Moodle-Administrator.';
 $string['logging_enabled'] = 'Logs einschalten';
@@ -116,8 +112,8 @@ $string['display_select_columns_desc'] =
         'In der Videoclip-Liste nur die benutzten Spalten wie Besitzer oder Aktionen anzeigen. Dies hat einen Einfluss auf die Ladegeschwindigkeit, weil die Liste aller Videoclips bei jeder Anzeige neu geladen werden muss.';
 $string['enabled_templates'] = 'Freigegebene Vorlagen (Templates)';
 $string['enabled_templates_desc'] =
-        'Führen Sie hier die SWITCHcast-Vorlagen auf, welche Sie für Ihre Institution freigeben möchten (wird nur beim Erstellen von Serien erzwungen).<br />Bitte eine Vorlage pro Linie im folgenden Format: <em>&lt;TEMPLATE_ID&gt;::&lt;TEMPLATE_NAME&gt;</em>.<br />Sie können den Namen der Vorlage weglassen (nicht aber die beiden Doppelpunkte), um den offiziellen SWITCHcast-Namen für die Vorlage zu verwenden.';
-$string['newchannelname'] = 'Neuer Name der Serie';
+        'Führen Sie hier die SWITCHcast-Vorlagen auf, welche Sie für Ihre Institution freigeben möchten (wird nur beim Erstellen von Kanälen erzwungen).<br />Bitte eine Vorlage pro Linie im folgenden Format: <em>&lt;TEMPLATE_ID&gt;::&lt;TEMPLATE_NAME&gt;</em>.<br />Sie können den Namen der Vorlage weglassen (nicht aber die beiden Doppelpunkte), um den offiziellen SWITCHcast-Namen für die Vorlage zu verwenden.';
+$string['newchannelname'] = 'Neuer Kanal-Name';
 $string['license'] = 'Lizenz';
 $string['months'] = '{$a} Monate';
 $string['years'] = '{$a} Jahre';
@@ -137,17 +133,17 @@ $string['no_owner'] = '(kein Besitzer)';
 $string['owner_not_in_moodle'] = '(Der Besitzer ist nicht bekannt in Moodle)';
 $string['clip_no_access'] = 'Sie haben keine Zugang zu diesem Videoclip.';
 $string['upload_clip'] = 'Einen neuen Videoclip hochladen';
-$string['edit_at_switch'] = 'Bearbeiten Sie diese Serie auf dem SWITCHcast-Server';
+$string['edit_at_switch'] = 'Bearbeiten Sie diesen Kanal auf dem SWITCHcast-Server';
 $string['edit_at_switch_short'] = 'Bei SWITCHcast bearbeiten';
-$string['opencast:use'] = 'Zeige Inhalt der SWITCHcast-Serie';
-$string['opencast:isproducer'] = 'Als Produzent der SWITCHcast-Serie registrieren (mit Zugriff auf alle Videoclips)';
+$string['opencast:use'] = 'Zeige Inhalt des SWITCHcast-Kanals';
+$string['opencast:isproducer'] = 'Als Produzent des SWITCHcast-Kanals registrieren (mit Zugriff auf alle Videoclips)';
 $string['opencast:addinstance'] = 'Kann eine neue SWITCHcast-Aktivität hinzufügen';
 $string['opencast:seeallclips'] = 'Kann alle Videoclips im Kurs anschauen.';
 $string['opencast:uploadclip'] = 'Kann einen Videoclip via Moodle hinzufügen';
 $string['nologfilewrite'] = 'Log-Files können nicht geschrieben werden: {$a}. Bitte prüfen Sie die Systemrechte.';
-$string['noclipsinchannel'] = 'Diese Serie enthält keine Videoclips.';
-$string['novisibleclipsinchannel'] = 'Diese Serie enthält keine Videoclips, auf welche Sie Zugriff haben.';
-$string['user_notaai'] = 'Sie benötigen einen SWITCHaai-Account, um eine neue Serie zu erstellen.';
+$string['noclipsinchannel'] = 'Dieser Kanal enthält keine Videoclips.';
+$string['novisibleclipsinchannel'] = 'Dieser Kanal enthält keine Videoclips, auf welche Sie Zugriff haben.';
+$string['user_notaai'] = 'Sie benötigen einen SWITCHaai-Account, um einen neuen Kanal zu erstellen.';
 $string['user_homeorgnotenabled'] =
         'Um eine SWICHcast-Aktivität zu erstellen, muss Ihre HomeOrganization ({$a}) in den generellen Moodle-Einstellungen freigeschaltet sein. Bitte kontaktieren Sie Ihren Moodle-Administrator.';
 $string['clip'] = 'Videoclip';
@@ -169,8 +165,8 @@ $string['m4v'] = 'Smartphone';
 $string['context'] = 'Kontext';
 $string['confirm_removeuser'] = 'Möchten Sie diesen Nutzer wirklich entfernen?';
 $string['delete_clip_confirm'] = 'Möchten Sie diesen Clip wirklich löschen?';
-$string['back_to_channel'] = 'Zur Serie-Übersicht zurückkehren';
-$string['channel_several_refs'] = 'Diese Serie wird in anderen Moodle-Aktivitäten verwendet.';
+$string['back_to_channel'] = 'Zur Kanal-Übersicht zurückkehren';
+$string['channel_several_refs'] = 'Dieser Kanal wird in anderen Moodle-Aktivitäten verwendet.';
 $string['set_clip_details'] = 'Metadaten des Videoclips erfassen';
 $string['owner_no_switch_account'] =
         'Es ist nicht möglich, &laquo;{$a}&raquo; als Besitzer dieses Videoclips einzutragen, weil dieser Nutzer keinen SWITCHaai-Account besitzt.';
@@ -185,7 +181,7 @@ $string['error_decoding_token'] = 'Fehler beim Dekodieren des Tokens: {$a}';
 $string['error_opening_privatekey'] = 'Fehler beim Öffnen des privaten Key-Files: {$a}';
 $string['error_decrypting_token'] = 'Fehler beim Entschlüsseln des Tokens: {$a}';
 $string['channelhasotherextauth'] =
-        'Diese Seroe wurde bereits mit einer anderen externen Authorität verbunden: <em>{$a}</em>.';
+        'Dieser Kanal wurde bereits mit einer anderen externen Authorität verbunden: <em>{$a}</em>.';
 $string['novisiblegroups'] = 'Diese Gruppeneinstellung steht für diese Aktivität nicht zur Verfügung.';
 $string['nogroups_withoutivt'] =
         'Getrennte Gruppen sind nur möglich, wenn die Einstellung &laquo;Individueller Zugang pro Videoclip&raquo; weiter oben aktiviert ist.';
@@ -206,13 +202,13 @@ $string['local_cache_time'] = 'XML-Cache Gültigkeitsdauer';
 $string['local_cache_time_desc'] =
         'Wie viele Sekunden soll die XML-Antwort des SWITCHcast-Servers im Cache behalten werden? 0 bedeutet kein Caching.';
 $string['removeowner'] = 'Besitzer entfernen';
-$string['channel_not_found'] = 'Die verlinkte Serie existiert nicht (mehr?).';
+$string['channel_not_found'] = 'Der verlinkte Kanal existiert nicht (mehr?).';
 $string['channeldoesnotbelong'] =
-        'Die verlinkte Serie gehört zu einer anderen Organisation ({$a}), weswegen Sie ihn nicht modifizieren können. Nur ein Teacher von {$a} kann die Serie modifizieren.';
+        'Der verlinkte Kanal gehört zu einer anderen Organisation ({$a}), weswegen Sie ihn nicht modifizieren können. Nur ein Teacher von {$a} kann den Kanal modifizieren.';
 $string['switch_api_down'] = 'Der SWITCHcast-Server antwortet nicht.';
 $string['api_fail'] = 'Fehler bei der Kommunikation mit dem SWITCHcast-Server.';
-$string['api_404'] = 'Die gewünschte Resource konnte nicht gefunden werden.';
-$string['badorganization'] = 'Die Organisation dieser Serie ist nicht korrekt konfiguriert.';
+$string['api_404'] = ''; // TODO
+$string['badorganization'] = 'Die Organisation dieses Kanals ist nicht korrekt konfiguriert.';
 $string['curl_proxy'] = 'Curl-Proxy';
 $string['curl_proxy_desc'] =
         'Falls Curl einen Proxy benutzen muss, tragen Sie ihn in der Form <em>proxyhostname:port</em> ein';
@@ -221,17 +217,17 @@ $string['loggedout'] = 'Sie wurden ausgeloggt. Bitte laden Sie die Webseite neu.
 $string['redirfailed'] = 'Das Weiterleiten ist gescheitert.';
 $string['allow_userupload'] = 'Uploads durch NutzerInnen erlauben';
 $string['allow_userupload_desc'] =
-        'Upload von Videoclips durch NutzerInnen direkt aus der Moodle-Aktivität in die SWITCHcast-Serie. Die entsprechende Option innerhalb der spezifischen Aktivätät muss ebenfalls aktiviert werden.';
+        'Upload von Videoclips durch NutzerInnen direkt aus der Moodle-Aktivität in den SWITCHcast-Kanal. Die entsprechende Option innerhalb der spezifischen Aktivätät muss ebenfalls aktiviert werden.';
 $string['userupload_maxfilesize'] = 'Maximale Dateigrösse pro Video';
 $string['userupload_maxfilesize_desc'] =
-        'Maximale Grösse pro Video, die ein Nutzer pro Upload hochladen kann. Grössere Dateien laden Sie bitte direkt in der SWITCHcast-Serie hoch.';
+        'Maximale Grösse pro Video, die ein Nutzer pro Upload hochladen kann. Grössere Dateien bis 2 GB laden Sie bitte direkt im SWITCHcast-Kanal hoch.';
 $string['userupload_error'] =
         'Während dem Hochladen der Datei ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es nochmals.';
 $string['fileis_notavideo'] = 'Die Datei ist keine Video-Datei. Der MIME-Typ ist: {$a}';
-$string['pendingclips'] = 'Es werden zur Zeit {$a} Videoclips in dieser Serie verarbeitet.';
-$string['mypendingclips'] = 'Es werden zur Zeit {$a} Videoclips von Ihnen in dieser Serie verarbeitet.';
-$string['uploadedclips'] = '{$a} Videoclips wurden in dieser Serie hochgeladen';
-$string['myuploadedclips'] = 'Sie haben {$a} Videoclips in dieser Serie hochgeladen';
+$string['pendingclips'] = 'Es werden zur Zeit {$a} Videoclips in diesem Kanal verarbeitet.';
+$string['mypendingclips'] = 'Es werden zur Zeit {$a} Videoclips von Ihnen in diesem Kanal verarbeitet.';
+$string['uploadedclips'] = '{$a} Videoclips wurden in diesem Kanal hochgeladen';
+$string['myuploadedclips'] = 'Sie haben {$a} Videoclips in diesem Kanal hochgeladen';
 $string['clipready_subject'] = 'Ihr Videoclip ist bereit';
 $string['clipready_body'] = 'Ihr hochgeladener Videoclip "{$a->cliptitle}" ({$a->filename}) ist bereit. Sie finden ihn in der folgenden Moodle-Aktivität:
 
@@ -259,7 +255,7 @@ $string['video_presenter'] = 'Referent des Videoclips';
 $string['video_location'] = 'Aufnahmeort des Videoclips';
 $string['scast_upload_form_hdr'] = 'Laden Sie Ihren Videoclip hier hoch';
 $string['uploader'] = 'Hochgeladen von';
-$string['license_EVENTS.LICENSE.ALLRIGHTS'] = 'Alle Rechte vorbehalten';
+$string['license_EVENTS.LICENSE.ALLRIGHTS'] = 'All rights reserved'; // TODO translate
 $string['license_EVENTS.LICENSE.CCBY'] = 'Creative Commons Attribution';
 $string['license_EVENTS.LICENSE.CCBYNC'] = 'Creative Commons Attribution-NonCommercial';
 $string['license_EVENTS.LICENSE.CCBYNCND'] = 'Creative Commons Attribution-NonCommercial-NoDerivs';
@@ -311,12 +307,9 @@ $string['set_clip_details_warning'] =
         'Warnung: Wenn Sie hier die Details des Clips ändern, werden  Titel und andere Metadaten, welche direkt innerhalb des Clips erscheinen, nicht geändert, da sie beim erstmaligen Upload direkt in die Clips hart-codiert werden.';
 $string['curl_timeout'] = 'cURL Timeout';
 $string['curl_timeout_desc'] =
-        'Zeit in Sekunden, um auf eine Antwort des SWITCHcast API-Servers zu warten. Vergrössern Sie diesen Wert, wenn Sie Serien mit einer grossen Anzahl von Videos haben und der SWITCHcast-Server nicht rechtzeitig antwortet.';
-$string['import_workflow'] = 'Workflow';
-$string['pubchannel_download'] = 'Publikations-Serie für den Download';
-$string['pubchannel_videoplayer'] = 'Publikations-Serie für Videoplayers';
-$string['pubchannel_annotate'] = 'Publikations-Serie für das Annotieren';
-$string['thumbnail_flavors'] = 'Video Thumbnail-Variante';
-$string['use_ipaddr_restriction'] = 'Verwendung der IP-Adressen-Restriktion';
-$string['use_ipaddr_restriction_desc'] = 'Verwenden Sie die IP-Adressen-Restriktion, um Video-Links zusätzlich zu schützen. Testen Sie dies sorgfältig, wenn NutzerInnen via einen Reverse Prox auf Moodle zugreifen. Deaktivieren Sie diese Option, falls sie Probleme verursacht.';
+        'Zeit in Sekunden, um auf eine Antwort des SWITCHcast API-Servers zu warten. Vergrössern Sie diesen Wert, wenn Sie Kanäle mit einer grossen Anzahl von Videos haben und der SWITCHcast-Server nicht rechtzeitig antwortet.';
+$string['import_workflow'] = 'Workflow'; // TODO translate
+$string['import_workflow_desc'] = 'ask your back-end administrator about this parameter'; // TODO translate
+$string['use_ipaddr_restriction'] = 'Use IP address restriction'; // TODO translate
+$string['use_ipaddr_restriction_desc'] = 'Use IP address restriction to further protect videos links. Test thoroughly if users access Moodle via a reverse proxy. Disable this if you encounter issues.'; // TODO translate
 
