@@ -28,6 +28,7 @@
                         />
                 <FIELD NAME="organization_domain" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"
                         />
+                <FIELD NAME="usageseconds" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="how many storage seconds this series is using in the OpenCast back-end"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

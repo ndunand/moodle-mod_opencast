@@ -73,6 +73,20 @@ function xmldb_opencast_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2015070100, 'mod', 'opencast');
     }
 
+    if ($oldversion < 2018101000) {
+
+        // Define field usageseconds to be added to opencast.
+        $table = new xmldb_table('opencast');
+        $field = new xmldb_field('usageseconds', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'organization_domain');
+
+        // Conditionally launch add field usageseconds.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Opencast savepoint reached.
+        upgrade_mod_savepoint(true, 2018101000, 'opencast');
+    }
 
     return true;
 }
