@@ -69,7 +69,12 @@ class mod_opencast_apicall {
         mod_opencast_log::write("REQUEST " . $request_type . " " . $request_url);
         mod_opencast_log::write("INPUT " . print_r($data, true));
 
-        $cache_filename = $cache_dir . '/' . self::hashfilename($request_url);
+        if ($url == '/series/') {
+            $cache_filename = $cache_dir . '/' . 'ROLE_AAI_USER_' . mod_opencast_user::getExtIdFromMoodleUserId($USER->id) . '_' . self::hashfilename($request_url);
+        }
+        else {
+            $cache_filename = $cache_dir . '/' . self::hashfilename($request_url);
+        }
 
         if ($usecache && (string)$request_type === 'GET' && $cache_time && $cache_dir && file_exists($cache_filename) && (time() - filemtime($cache_filename) < $cache_time)) {
             // use the appropriate cached file
@@ -223,6 +228,8 @@ class mod_opencast_apicall {
      * @return bool
      */
     static function clear_cache($dirname, $request_type, $request_url) {
+        global $USER;
+
         $request_url = str_replace(mod_opencast_series::getValueForKey('switch_api_host'), '', $request_url);
         $request_url = rtrim($request_url, '/');
         switch ($request_type) {
@@ -238,7 +245,8 @@ class mod_opencast_apicall {
                 else if ($request_url == '/series') {
                     // adding a series -> clear global series list
                     $filter = 'series_';
-                    return unlink($dirname . DIRECTORY_SEPARATOR . $filter); // only delete this very file
+//                    return unlink($dirname . DIRECTORY_SEPARATOR . $filter); // only delete this very file
+                    return unlink($dirname . DIRECTORY_SEPARATOR . 'ROLE_AAI_USER_' . mod_opencast_user::getExtIdFromMoodleUserId($USER->id) . '_' . $filter); // only delete this very file
                 }
                 break;
             case 'PUT':
