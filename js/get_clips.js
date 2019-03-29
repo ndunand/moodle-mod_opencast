@@ -139,7 +139,7 @@
                 if (sortkey !== '' && sortdir !== '') {
                     $('.opencast-clips-table th[data-sortkey=' + sortkey + ']').find('a').attr('class', 'sort ' + sortdir);
                 }
-                $('a[href="#opencast-inactive"], a:not([href])').remove();
+                $('a[href="#opencast-inactive"], tr.opencast-clip-template-row a:not([href])').remove();
 
                 // only display table columns that are actually used
                 if (!show_recordingstation) {
