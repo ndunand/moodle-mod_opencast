@@ -79,6 +79,9 @@ function opencast_add_instance($opencast) {
 
     $opencast->id = $DB->insert_record('opencast', $opencast);
 
+    $completiontimeexpected = !empty($opencast->completionexpected) ? $opencast->completionexpected : null;
+    \core_completion\api::update_completion_date_event($opencast->coursemodule, 'opencast', $opencast->id, $completiontimeexpected);
+
     return $opencast->id;
 }
 
@@ -122,6 +125,9 @@ function opencast_update_instance($opencast) {
     }
 
     $moodle_update = $DB->update_record('opencast', $opencast);
+
+    $completiontimeexpected = !empty($opencast->completionexpected) ? $opencast->completionexpected : null;
+    \core_completion\api::update_completion_date_event($opencast->coursemodule, 'opencast', $opencast->id, $completiontimeexpected);
 
     return $mod_opencast_update && $moodle_update;
 }
@@ -340,5 +346,35 @@ function opencast_cron() {
     mod_opencast_series::processUploadedClips();
 
     return true;
+}
+
+/**
+ * This function receives a calendar event and returns the action associated with it, or null if there is none.
+ *
+ * This is used by block_myoverview in order to display the event appropriately. If null is returned then the event
+ * is not displayed on the block.
+ *
+ * @param calendar_event $event
+ * @param \core_calendar\action_factory $factory
+ * @return \core_calendar\local\event\entities\action_interface|null
+ */
+function mod_opencast_core_calendar_provide_event_action(calendar_event $event,
+                                                            \core_calendar\action_factory $factory) {
+    $cm = get_fast_modinfo($event->courseid)->instances['opencast'][$event->instance];
+
+    $completion = new \completion_info($cm->get_course());
+
+    $completiondata = $completion->get_data($cm, false);
+
+    if ($completiondata->completionstate != COMPLETION_INCOMPLETE) {
+        return null;
+    }
+
+    return $factory->create_instance(
+            get_string('view'),
+            new \moodle_url('/mod/opencast/view.php', ['id' => $cm->id]),
+            1,
+            true
+    );
 }
 
