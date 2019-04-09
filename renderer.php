@@ -535,8 +535,12 @@ class mod_opencast_renderer extends plugin_renderer_base {
             echo html_writer::start_tag('table', ['class' => 'opencast-clips']);
             $this->display_singleclip_table_header(false, $with_owner, $with_uploader, false);
             foreach ($uploaded as $uploaded_record) {
-                $sc_clip = new mod_opencast_event($sc_obj, $uploaded_record->ext_id, null, $uploaded_record->opencastid);
-                $this->display_clip_outline($sc_clip, false, false, null, $with_owner, $with_uploader, false, false);
+                try {
+                    $sc_clip = new mod_opencast_event($sc_obj, $uploaded_record->ext_id, null, $uploaded_record->opencastid);
+                    $this->display_clip_outline($sc_clip, false, false, null, $with_owner, $with_uploader, false, false);
+                }
+                catch (Exception $e) {
+                }
             }
             echo html_writer::end_tag('table');
         }
