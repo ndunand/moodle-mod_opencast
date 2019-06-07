@@ -127,6 +127,16 @@ class mod_opencast_mod_form extends moodleform_mod {
         foreach ($userchannels as $userchannel) {
             $channels[(string)$userchannel->identifier] = (string)$userchannel->title;
         }
+        if (!empty($this->_instance) && !isset($channels[$this->current->ext_id])) {
+            // Instance exists but $USER has not access to it (yet)
+            // from $sysaccount, which MUST exist because we already checked.
+            // We have to freeze the channel selector further down.
+            $sysuserchannels = $sysaccount->getChannels();
+            $syschannels = [];
+            foreach ($sysuserchannels as $sysuserchannel) {
+                $syschannels[(string)$sysuserchannel->identifier] = (string)$sysuserchannel->title;
+            }
+        }
         $mform->addElement('select', 'ext_id', get_string('channelchoose', 'opencast'), $channels);
         $mform->disabledIf('ext_id', 'channelnew', 'eq', OPENCAST_CHANNEL_NEW);
 
@@ -209,8 +219,19 @@ class mod_opencast_mod_form extends moodleform_mod {
             $mform->removeElement('channelnew');
             $mform->removeElement('userupload');
             $mform->removeElement('userupload_maxfilesize');
-            $mform->addElement('html',
-                    html_writer::tag('p', get_string('channel_not_found', 'opencast'), ['class' => 'notify']));
+            if (isset($syschannels[$this->current->ext_id])) {
+                // channel is not in user's list but exists, so display correct error message
+                $mform->addElement('html',
+                        html_writer::tag('p', 'Wiating for access rights to be set... please try again.', ['class' => 'notify'])); // TODO localize string
+                // destroy ACL cache for this series
+                mod_opencast_apicall::clear_cache($CFG->dataroot . '/cache/mod_opencast', 'PUT', '/series/' . $this->current->ext_id . '/acl');
+                // TODO cachedir should be property of mod_opencast_apicall class
+            }
+            else {
+                // channel acually does not exist at all
+                $mform->addElement('html',
+                        html_writer::tag('p', get_string('channel_not_found', 'opencast'), ['class' => 'notify']));
+            }
         }
 
         $this->standard_coursemodule_elements();
