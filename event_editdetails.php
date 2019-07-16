@@ -157,7 +157,7 @@ if (has_capability('mod/opencast:isproducer', $context)) {
     echo html_writer::end_div();
     echo html_writer::start_div();
     echo html_writer::tag('span', '&nbsp;');
-    echo html_writer::empty_tag('input', ['type' => 'submit', 'value' => get_string('savechanges')]);
+    echo html_writer::empty_tag('input', ['type' => 'submit', 'value' => get_string('savechanges'), 'class' => 'btn btn-primary']);
     echo html_writer::end_div();
     echo html_writer::end_tag('form');
 }

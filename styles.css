@@ -23,11 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-.path-mod-opencast iframe {
-    border: none;
-    overflow: none;
-}
-
 .path-mod-opencast table.opencast-clips {
     width: 100%;
     border-bottom: 1px #ccc dotted;
@@ -302,21 +297,21 @@
     clear: both;
 }
 
-#page-mod-opencast-clip_members form, #page-mod-opencast-clip_editdetails form {
+#page-mod-opencast-clip_members form, #page-mod-opencast-event_editdetails form {
     text-align: right;
     margin: 10px 0;
 }
 
-#page-mod-opencast-clip_editdetails form.details {
+#page-mod-opencast-event_editdetails form.details {
     text-align: left;
 }
 
-#page-mod-opencast-clip_editdetails form.details div {
+#page-mod-opencast-event_editdetails form.details div {
     padding: 3px;
     clear: both;
 }
 
-#page-mod-opencast-clip_editdetails form.details span {
+#page-mod-opencast-event_editdetails form.details span {
     display: block;
     float: left;
     width: 200px;
@@ -341,9 +336,8 @@
     font-size: 9px;
 }
 
-#page-mod-opencast-clip_editdetails form.border {
+#page-mod-opencast-event_editdetails form.border {
     width: 100%;
     padding-bottom: 10px;
-    border-bottom: 1px #ccc dotted;
 }
 
