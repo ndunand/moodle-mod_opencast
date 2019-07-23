@@ -104,6 +104,8 @@ $fileno = 0;
 foreach ($nonverified_clips as $clip) {
     $mod_opencast_clip = new mod_opencast_event($series, $clip->identifier, false, $opencast->id);
     $gotourl = $mod_opencast_clip->getLinkMov();
+    $ownerid = $mod_opencast_clip->getOwnerUserId();
+    $owner = $DB->get_record('user', ['id' => $ownerid]);
     if (!$gotourl) {
         continue; // some videos are failed or not dowloadable/visible anyway
     }
@@ -118,7 +120,7 @@ foreach ($nonverified_clips as $clip) {
             'valid-until'  => date('Y-m-d', $valid_until) . 'T' . gmdate('H:i:s', $valid_until) . 'Z'
     ]);
     $fileno++;
-    $filename = $tempdir . DIRECTORY_SEPARATOR . 'file' . str_pad($fileno, 4, '0', STR_PAD_LEFT) . '-' . preg_replace( '/[^a-zA-Z0-9]+/', '-', $mod_opencast_clip->title) . '.mp4';
+    $filename = $tempdir . DIRECTORY_SEPARATOR . 'file' . str_pad($fileno, 4, '0', STR_PAD_LEFT)  . '-' . preg_replace( '/[^a-zA-Z0-9]+/', '-', $owner->email) . '-' . preg_replace( '/[^a-zA-Z0-9]+/', '-', $mod_opencast_clip->title) . '.mp4';
     exec('curl "' . $signed_url->url . '" -o ' . $filename . ' > /dev/null 2>&1');
     mtrace('file ' . $fileno . '/' . $nbclips . ' : ' . $filename . ' saved');
 }
