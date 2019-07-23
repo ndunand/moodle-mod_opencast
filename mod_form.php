@@ -166,6 +166,7 @@ class mod_opencast_mod_form extends moodleform_mod {
 
         $yesno = [0 => get_string('no'), 1 => get_string('yes')];
         $mform->addElement('select', 'is_ivt', get_string('is_ivt', 'opencast'), $yesno);
+        $mform->addHelpButton('is_ivt', 'is_ivt', 'opencast');
         $mform->addElement('select', 'inviting', get_string('inviting', 'opencast'), $yesno);
         $mform->disabledIf('inviting', 'is_ivt', 'eq', 0);
 

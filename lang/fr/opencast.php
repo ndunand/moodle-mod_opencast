@@ -122,6 +122,7 @@ $string['template_id'] = 'Template Switchcast';
 $string['template_id_help'] =
         'Template SwitchCast à utiliser pour l\'encodage des vidéos. Ceci définit quels formats vidéo snt disponibles ainsi que d\'autres options éventuelles. Veuillez vous référer aux instructions fournies par votre institution. <strong>Ce réglage ne peut plus être modifié ensuite.</strong>';
 $string['is_ivt'] = 'Accès individuel par clip';
+$string['is_ivt_help'] = '<strong>Non : </strong> tous les participants peuvent voir tous les clips<br><strong>Oui : </strong>les particpants ne peuvent voir que leur propres clips, les clips qu\'ils ont déposé, les clips auxquels ils ont été invités, et les clips apparetnant aux membres de leur groupe si l\'activité est en mode "groupes séparés".'; // @see \mod_opencast_event::isAllowed()
 $string['inviting'] = 'Propriétaire du clip peut inviter';
 $string['clip_member'] = 'Participants invités au clip';
 $string['channel_teacher'] = 'Enseignant';

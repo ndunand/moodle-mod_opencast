@@ -125,6 +125,7 @@ $string['template_id'] = 'SwitchCast template';
 $string['template_id_help'] =
         'SwitchCast template to use for the encoding of the clips. This defines which video formats are avaible and/or other features. Refer to your institution\'s instructions. <strong>This can not be modified afterwards.</strong>';
 $string['is_ivt'] = 'Individual access per clip';
+$string['is_ivt_help'] = '<strong>No: </strong> all students can see all clips<br><strong>Yes: </strong>students can only see their own clips, the clips they have uploaded, clips they are invited to, and clips from their group if the activity is in separate groups mode.'; // @see \mod_opencast_event::isAllowed()
 $string['inviting'] = 'Clip Owner can invite other users';
 $string['clip_member'] = 'Invited clip member';
 $string['channel_teacher'] = 'Teacher';
