@@ -56,7 +56,7 @@ class course_module_viewed extends \core\event\course_module_viewed {
      */
     protected function get_legacy_logdata() {
         return [
-                $this->courseid, 'opencast', 'view group choice', 'view.php?id=' . $this->contextinstanceid,
+                $this->courseid, 'opencast', 'view OpenCast activity', 'view.php?id=' . $this->contextinstanceid,
                 $this->objectid, $this->contextinstanceid
         ];
     }
