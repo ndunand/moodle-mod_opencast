@@ -73,10 +73,7 @@
 .path-mod-opencast a.button {
     display: block;
     float: right;
-    padding: 3px 5px;
     margin: 2px;
-    text-decoration: none;
-    border: 1px #ccc solid;
 }
 
 .path-mod-opencast table.opencast-clips a.button {
@@ -182,39 +179,35 @@
 }
 
 .path-mod-opencast table.opencast-clips div.cliplabel div.linkbar a {
-    background-color: #ccc;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: auto 90%;
-    border-radius: 5px;
-}
-
-.path-mod-opencast table.opencast-clips div.cliplabel a, .path-mod-opencast table.opencast-clips div.cliplabel a:link, .path-mod-opencast table.opencast-clips div.cliplabel a:active, .path-mod-opencast table.opencast-clips div.cliplabel a:visited, .path-mod-opencast table.opencast-clips div.cliplabel a:hover {
     display: block;
     float: right;
-    width: 26px;
+    width: 22px;
     height: 16px;
-    color: #fff;
-    font-size: xpx;
-    text-decoration: none;
+    line-height: 16px;
+    color: #000;
+    padding: 0;
     margin: 0 0 0 6px;
 }
 
-.path-mod-opencast a.flash {
-    background-image: url([[pix:mod_opencast|flash]]);
+.path-mod-opencast table.opencast-clips div.cliplabel a, .path-mod-opencast table.opencast-clips div.cliplabel a:link, .path-mod-opencast table.opencast-clips div.cliplabel a:active, .path-mod-opencast table.opencast-clips div.cliplabel a:visited, .path-mod-opencast table.opencast-clips div.cliplabel a:hover {
+    text-decoration: none;
 }
 
-.path-mod-opencast a.mov {
-    background-image: url([[pix:mod_opencast|mov]]);
-}
+/*.path-mod-opencast a.flash {*/
+/*    background-image: url([[pix:mod_opencast|flash]]);*/
+/*}*/
 
-.path-mod-opencast a.m4v {
-    background-image: url([[pix:mod_opencast|m4v]]);
-}
+/*.path-mod-opencast a.mov {*/
+/*    background-image: url([[pix:mod_opencast|mov]]);*/
+/*}*/
 
-.path-mod-opencast a.annotate {
-    background-image: url([[pix:mod_opencast|annotate]]);
-}
+/*.path-mod-opencast a.m4v {*/
+/*    background-image: url([[pix:mod_opencast|m4v]]);*/
+/*}*/
+
+/*.path-mod-opencast a.annotate {*/
+/*    background-image: url([[pix:mod_opencast|annotate]]);*/
+/*}*/
 
 .path-mod-opencast .notify {
     margin: 1em 0;

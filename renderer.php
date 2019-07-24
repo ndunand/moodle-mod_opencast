@@ -214,9 +214,9 @@ class mod_opencast_renderer extends plugin_renderer_base {
 
         echo html_writer::start_tag('div');
         echo html_writer::tag('span', '&nbsp;');
-        echo html_writer::tag('button', get_string('resetfilters', 'opencast'), ['class' => 'cancel']);
+        echo html_writer::tag('button', get_string('resetfilters', 'opencast'), ['class' => 'cancel btn btn-secondary']);
         echo html_writer::tag('span', '&nbsp;');
-        echo html_writer::tag('button', get_string('ok'), ['class' => 'ok']);
+        echo html_writer::tag('button', get_string('ok'), ['class' => 'ok btn btn-primary']);
         echo html_writer::end_tag('div');
 
         echo html_writer::end_tag('div');
@@ -325,7 +325,7 @@ class mod_opencast_renderer extends plugin_renderer_base {
             if ($is_template) {
                 echo html_writer::tag('a', '', [
                                 'href'  => '#opencast-inactive', 'title' => get_string('annotations', 'opencast'),
-                                'class' => 'annotate', 'target' => '_blank'
+                                'class' => 'annotate fa fa-edit btn btn-secondary', 'target' => '_blank'
                         ]);
             }
             else if ($this->series->getAllowAnnotations()) {
@@ -337,12 +337,12 @@ class mod_opencast_renderer extends plugin_renderer_base {
             }
             echo html_writer::tag('a', '', [
                             'href'  => $sc_clip->getLinkFlash(), 'title' => get_string('flash', 'opencast'),
-                            'class' => 'flash', 'target' => '_blank'
+                            'class' => 'flash fa fa-play-circle btn btn-secondary', 'target' => '_blank'
                     ]);
             //        echo html_writer::tag('span', $sc_clip->getLinkMp4());
             echo html_writer::tag('a', '', [
                             'href'  => $sc_clip->getLinkMov(), 'title' => get_string('mov', 'opencast'),
-                            'class' => 'mov', 'target' => '_blank'
+                            'class' => 'mov fa fa-download btn btn-secondary', 'target' => '_blank'
                     ]);
 //            echo html_writer::tag('a', '', [
 //                            'href'  => $sc_clip->getLinkM4v(), 'title' => get_string('m4v', 'opencast'),
@@ -391,19 +391,19 @@ class mod_opencast_renderer extends plugin_renderer_base {
             if (in_array('editdetails', $allowed_actions) || in_array('all', $allowed_actions)) {
                 echo html_writer::tag('a', get_string('editdetails', 'opencast'), [
                                 'href'  => $CFG->wwwroot . '/mod/opencast/event_editdetails.php?id=' . $cm->id . '&clip_ext_id=' . $sc_clip->getExtId(),
-                                'class' => 'button opencast-editdetails'
+                                'class' => 'button opencast-editdetails btn btn-secondary'
                         ]);
             }
             if (in_array('invite', $allowed_actions) || in_array('all', $allowed_actions)) {
                 echo html_writer::tag('a', get_string('editmembers', 'opencast'), [
                                 'href'  => $CFG->wwwroot . '/mod/opencast/event_members.php?id=' . $cm->id . '&clip_identifier=' . $sc_clip->getExtId(),
-                                'class' => 'button opencast-clipmembers'
+                                'class' => 'button opencast-clipmembers btn btn-secondary'
                         ]);
             }
             if (in_array('delete', $allowed_actions) || in_array('all', $allowed_actions)) {
                 echo html_writer::tag('a', get_string('delete_clip', 'opencast'), [
                                 'href'  => $CFG->wwwroot . '/mod/opencast/event_delete.php?id=' . $cm->id . '&clip_ext_id=' . $sc_clip->getExtId(),
-                                'class' => 'button opencast-deleteclip'
+                                'class' => 'button opencast-deleteclip btn btn-secondary'
                         ]);
             }
             echo html_writer::end_tag('div');
@@ -614,7 +614,7 @@ class mod_opencast_renderer extends plugin_renderer_base {
             echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
             echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'action', 'value' => 'remove']);
             echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'userid', 'value' => $user->id]);
-            echo html_writer::empty_tag('input', ['type' => 'submit', 'value' => get_string('remove')]);
+            echo html_writer::empty_tag('input', ['type' => 'submit', 'class' => 'btn btn-secondary', 'value' => get_string('remove')]);
             echo html_writer::end_tag('form');
         }
         echo html_writer::end_tag('td');
@@ -702,7 +702,7 @@ class mod_opencast_renderer extends plugin_renderer_base {
             }
             echo html_writer::select($options, 'userid', $selected_id);
             if (!$selectonly) {
-                echo html_writer::empty_tag('input', ['type' => 'submit', 'value' => $buttonlabel]);
+                echo html_writer::empty_tag('input', ['type' => 'submit', 'class' => 'btn btn-primary', 'value' => $buttonlabel]);
                 echo html_writer::end_tag('form');
             }
         }
@@ -713,7 +713,7 @@ class mod_opencast_renderer extends plugin_renderer_base {
             echo html_writer::select($options, 'userid', null, null, ['disabled' => 'disabled']);
             if (!$selectonly) {
                 echo html_writer::empty_tag('input',
-                        ['type' => 'submit', 'value' => $buttonlabel, 'disabled' => 'disabled']);
+                        ['type' => 'submit', 'class' => 'btn btn-primary', 'value' => $buttonlabel, 'disabled' => 'disabled']);
                 echo html_writer::tag('div', get_string('nomoreusers', 'opencast'));
                 echo html_writer::end_tag('form');
             }
