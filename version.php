@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018101000;
-$plugin->requires = 2014050800; // Requires Moodle 2.7, tested up to Moodle 3.5
+$plugin->version = 2019072400;
+$plugin->requires = 2018051700; // Requires Moodle 3.5, tested up to Moodle 3.7
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.2';
+$plugin->release = '2.3 for Moodle 3.5-3.7 (Build 2019072400)';
 
 $plugin->component = 'mod_opencast';
 $plugin->cron = 15 * 60;
