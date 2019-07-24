@@ -283,7 +283,25 @@ function opencast_supports($feature) {
  * @param navigation_node     $opencastnode The node to add module settings to
  */
 function opencast_extend_settings_navigation(settings_navigation $settings, navigation_node $opencastnode) {
-    global $PAGE, $USER;
+    global $PAGE, $opencast;
+
+    $cmid = $PAGE->cm->id;
+    $context = $PAGE->cm->context;
+
+    if (has_capability('mod/opencast:isproducer', $context)
+            || ($opencast->userupload && has_capability('mod/opencast:uploadclip', $context))) {
+        $opencastnode->add(get_string('upload_clip', 'opencast'),
+                new \moodle_url('/mod/opencast/upload_event.php?id=' . $cmid));
+    }
+    if (has_capability('mod/opencast:isproducer', $context) && $opencast->userupload) {
+        $opencastnode->add(get_string('view_useruploads', 'opencast'),
+                new \moodle_url('/mod/opencast/uploads.php?id=' . $cmid));
+    }
+    if (has_capability('mod/opencast:isproducer', $context)) {
+        $sc_obj = new mod_opencast_series();
+        $sc_obj->fetch($opencast->id);
+        $opencastnode->add(get_string('edit_at_switch', 'opencast'), new \moodle_url($sc_obj->getEditLink()));
+    }
 
     // NOTE ND : forget it because no way to make this open in a new window
     //    if (has_capability('mod/opencast:isproducer', $PAGE->cm->context)) {
