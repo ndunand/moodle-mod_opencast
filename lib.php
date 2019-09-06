@@ -283,10 +283,11 @@ function opencast_supports($feature) {
  * @param navigation_node     $opencastnode The node to add module settings to
  */
 function opencast_extend_settings_navigation(settings_navigation $settings, navigation_node $opencastnode) {
-    global $PAGE, $opencast;
+    global $PAGE;
 
     $cmid = $PAGE->cm->id;
     $context = $PAGE->cm->context;
+    $opencast = opencast_get_opencast($PAGE->cm->instance);
 
     if (has_capability('mod/opencast:isproducer', $context)
             || ($opencast->userupload && has_capability('mod/opencast:uploadclip', $context))) {
