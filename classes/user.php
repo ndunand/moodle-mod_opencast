@@ -228,7 +228,7 @@ class mod_opencast_user {
         }
 
         // new implementation:
-        $url = '/series/';
+        $url = '/series?limit=9999';
         $results = mod_opencast_apicall::sendRequest($url, 'GET');
 
         return $results;

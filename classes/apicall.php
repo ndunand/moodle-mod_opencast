@@ -69,7 +69,7 @@ class mod_opencast_apicall {
         mod_opencast_log::write("REQUEST " . $request_type . " " . $request_url);
         mod_opencast_log::write("INPUT " . print_r($data, true));
 
-        if ($url == '/series/') {
+        if (strpos($url, '/series?limit=') === 0) {
             $cache_filename = $cache_dir . '/' . 'ROLE_AAI_USER_' . mod_opencast_user::getExtIdFromMoodleUserId($USER->id) . '_' . self::hashfilename($request_url);
         }
         else {
