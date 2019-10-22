@@ -72,7 +72,7 @@ if ($token == sha1(mod_opencast_series::getValueForKey('default_sysaccount') . $
 
     // 1.- request signing of the URL
     $time = time();
-    $validity_time_seconds = 60;
+    $validity_time_seconds = 3600;
     $valid_until = $time + $validity_time_seconds;
     $signing_request_params = [
             'url'          => $url,
