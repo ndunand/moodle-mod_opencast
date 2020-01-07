@@ -185,15 +185,13 @@ class mod_opencast_mod_form extends moodleform_mod {
             }
             else {
                 // sys_account unavailable -> remove all channel manipulation options and display a notice
-                $mform->removeElement('inviting');
-                $mform->removeElement('is_ivt');
+                foreach (['inviting', 'is_ivt', 'allow_annotations', 'ext_id', 'channelnew', 'userupload', 'userupload_maxfilesize'] as $element) {
+                    if ($mform->elementExists($element)) {
+                        $mform->removeElement($element);
+                    }
+                }
 //                $mform->removeElement('template_id');
-                $mform->removeElement('allow_annotations');
 //                $mform->removeElement('license');
-                $mform->removeElement('ext_id');
-                $mform->removeElement('channelnew');
-                $mform->removeElement('userupload');
-                $mform->removeElement('userupload_maxfilesize');
                 $mform->addElement('html',
                         get_string('channeldoesnotbelong', 'opencast', $this->current->organization_domain));
             }
