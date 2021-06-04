@@ -149,6 +149,16 @@ class mod_opencast_renderer extends plugin_renderer_base {
 
         echo html_writer::tag('h2', $opencast->name);
 
+        if (class_exists('\core_completion\cm_completion_details') && class_exists('\core\activity_dates')) {
+            global $course, $USER;
+            // Show the activity dates and completion details.
+            $modinfo = get_fast_modinfo($course);
+            $cminfo = $modinfo->get_cm($cm->id);
+            $cmcompletion = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
+            $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
+            echo $this->output->activity_information($cminfo, $cmcompletion, $activitydates);
+        }
+
         if ($opencast->intro) {
             echo $OUTPUT->box(format_module_intro('opencast', $opencast, $cm->id), 'generalbox', 'intro');
         }
