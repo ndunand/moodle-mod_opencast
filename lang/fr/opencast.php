@@ -55,7 +55,6 @@ $string['notanswered'] = 'Pas encore répondu';
 $string['notopenyet'] = 'Désolé, cette activité n\'est pas disponible avant {$a}.';
 $string['pluginadministration'] = 'Administration SWITCHcast';
 $string['pluginname'] = 'OpenCast';
-$string['timerestrict'] = 'Limiter les réponses à cette période';
 $string['viewallresponses'] = 'Visualiser {$a} réponses';
 $string['withselected'] = 'Avec la sélection';
 $string['yourselection'] = 'Votre sélection';
