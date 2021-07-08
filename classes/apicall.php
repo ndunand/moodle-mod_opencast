@@ -244,7 +244,7 @@ class mod_opencast_apicall {
                 }
                 else if ($request_url == '/series') {
                     // adding a series -> clear global series list
-                    $filter = 'series_';
+                    $filter = 'series_limit_9999';
 //                    return unlink($dirname . DIRECTORY_SEPARATOR . $filter); // only delete this very file
                     return unlink($dirname . DIRECTORY_SEPARATOR . 'ROLE_AAI_USER_' . mod_opencast_user::getExtIdFromMoodleUserId($USER->id) . '_' . $filter); // only delete this very file
                 }
