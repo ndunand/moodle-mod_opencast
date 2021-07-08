@@ -300,33 +300,6 @@ function opencast_extend_settings_navigation(settings_navigation $settings, navi
 }
 
 /**
- * Obtains the automatic completion state for this opencast based on any conditions
- * present in the settings.
- *
- * @param object $course Course
- * @param object $cm     Course-module
- * @param int    $userid User ID
- * @param bool   $type   Type of comparison (or/and; can be used as return value if no conditions)
- *
- * @return bool True if completed, false if not, $type if conditions not set.
- */
-//function opencast_get_completion_state($course, $cm, $userid, $type) {
-//    global $CFG,$DB;
-//
-//    // Get opencast details
-//    $opencast = $DB->get_record('opencast', array('id'=>$cm->instance), '*', MUST_EXIST);
-//
-//    // If completion option is enabled, evaluate it and return true/false
-//    if($opencast->completionsubmit) {
-//        $useranswer = opencast_get_user_answer($opencast, $userid);
-//        return $useranswer !== false;
-//    } else {
-//        // Completion option is not enabled so just return $type
-//        return $type;
-//    }
-//}
-
-/**
  * Return a list of page types
  *
  * @param string   $pagetype       current page type
