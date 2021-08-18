@@ -72,6 +72,11 @@ function opencast_add_instance($opencast) {
         $scast->update();
     }
 
+    if (empty($opencast->timerestrict)) {
+        $opencast->timeopen = 0;
+        $opencast->timeclose = 0;
+    }
+
     $opencast->id = $DB->insert_record('opencast', $opencast);
 
     $completiontimeexpected = !empty($opencast->completionexpected) ? $opencast->completionexpected : null;
@@ -113,6 +118,11 @@ function opencast_update_instance($opencast) {
     $mod_opencast_update = $scast->update();
 
     $opencast->ext_id = $scast->getExtId();
+
+    if (empty($opencast->timerestrict)) {
+        $opencast->timeopen = 0;
+        $opencast->timeclose = 0;
+    }
 
     $moodle_update = $DB->update_record('opencast', $opencast);
 
@@ -208,6 +218,12 @@ function opencast_reset_userdata($data) {
         $status[] = [
                 'component' => $componentstr, 'item' => get_string('removeclipmembers', 'opencast'), 'error' => false
         ];
+    }
+
+    // updating dates - shift may be negative too
+    if ($data->timeshift) {
+        shift_course_mod_dates('opencast', ['timeopen', 'timeclose'], $data->timeshift, $data->courseid);
+        $status[] = ['component' => $componentstr, 'item' => get_string('datechanged'), 'error' => false];
     }
 
     return $status;
