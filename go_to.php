@@ -84,7 +84,13 @@ if ($token == sha1(mod_opencast_series::getValueForKey('default_sysaccount') . $
     $signed_url = mod_opencast_apicall::sendRequest('/security/sign', 'POST', $signing_request_params);
 
     // 2.- redirect to signed URL
-    header("Location: " . $signed_url->url);
+    if (!isset($signed_url->error)) {
+        header("Location: " . $signed_url->url);
+        exit;
+    }
+
+    // 3.- Optionally, URL could not be signed, try redirecting to unsigned URL as a fallback.
+    header("Location: " . $url);
     exit;
 }
 
