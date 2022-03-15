@@ -20,6 +20,8 @@ Configure an OpenCast tenant. This will allow the OpenCast system to delegate au
 
 The latest version of the mod_opencast Moodle activity plugin is available on GitHub : https://github.com/ndunand/moodle-mod_opencast .
 
+Note: When manually installing the plugin via `git clone`, don't forget to rename the plugin to "opencast". Moodle might not find the plugin if it is not renamed.
+
 Install as any other activity module into your Moodle's /mod directory, then visit http://your.moodle/admin/ to proceed with module installation.
 
 
